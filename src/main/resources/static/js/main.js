@@ -138,7 +138,8 @@ function removeUser(id,name,age,salary){
 	      success : function(result) {
 	        
 	        if(result.status == "Success"){
-				alert("Successfully Removed !");        
+				alert("Successfully Removed !"); 
+				loadUserList();       
 	        }else{
 	        	alert("Error occurred While Removing !");  
 	        }

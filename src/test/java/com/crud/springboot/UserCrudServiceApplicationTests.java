@@ -28,13 +28,8 @@ public class UserCrudServiceApplicationTests {
 
 	@Autowired
 	private MockMvc mvc;
-
-	/*
-	 * @Test public void contextLoads() { System.out.print("Tetst >>>>>>>>>>>>>");
-	 * User u = new User("Lahiru", new Integer(35), new Double(30000.00), "Y");
-	 * userRepo.save(u); System.out.print("after Tetst >>>>>>>>>>>>>"); }
-	 */
-
+	
+	
 	@Test
 	public void testGetAllUserApi() throws Exception {
 		mvc.perform(
