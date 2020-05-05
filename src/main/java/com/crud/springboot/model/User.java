@@ -9,11 +9,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="app_user")
 public class User {
-	/*
-	 * 
-	 * 
-	 * @GeneratedValue(strategy = GenerationType.AUTO) 
-	 */
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;

@@ -60,7 +60,7 @@ public class UserCrudServiceApplicationTests {
 	}
 	
 	@Test
-	public void tesSaveUserAPI() throws Exception 
+	public void tesSaveUserAPISuccess() throws Exception 
 	{
 	  mvc.perform( MockMvcRequestBuilders
 	      .post("/customer/save")
@@ -69,6 +69,18 @@ public class UserCrudServiceApplicationTests {
 	      .accept(MediaType.APPLICATION_JSON))
 	      //.andExpect(status().isCreated())
 	      .andExpect(MockMvcResultMatchers.jsonPath("$.status").value("Success"));
+	}
+	
+	@Test
+	public void tesSaveUserAPIFailed() throws Exception 
+	{
+	  mvc.perform( MockMvcRequestBuilders
+	      .post("/customer/save")
+	      .content(asJsonString(new User("Test name", null, 35000.00)))
+	      .contentType(MediaType.APPLICATION_JSON)
+	      .accept(MediaType.APPLICATION_JSON))
+	      //.andExpect(status().isCreated())
+	      .andExpect(MockMvcResultMatchers.jsonPath("$.status").value("Failed"));
 	}
 
 	public static String asJsonString(final Object obj) {
