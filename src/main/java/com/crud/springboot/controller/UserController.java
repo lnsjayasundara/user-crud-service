@@ -12,11 +12,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.crud.springboot.model.ResponseMessage;
 import com.crud.springboot.model.User;
 import com.crud.springboot.repository.UserRepository;
+
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 public class UserController {
@@ -29,6 +33,7 @@ public class UserController {
 	 * @param user
 	 * @return
 	 */
+	@ApiOperation(value = "Save User data")
 	@PostMapping(path = "/customer/save")
 	public ResponseEntity<?> saveUser(@RequestBody User user) {
 		try {
@@ -48,7 +53,9 @@ public class UserController {
 	 * @param id
 	 * @return
 	 */
-	@GetMapping(path = "/cutomer/filter/{id}")
+	@ApiOperation(value = "Get User data")
+	//@GetMapping(path = "/cutomer/filter/{id}")
+	@RequestMapping(method=RequestMethod.GET, value= "/cutomer/filter/{id}")
 	public Object getUser(@PathVariable("id") Long id) {
 		if (id != (long) 0) {
 			return userRepo.findById(id);
@@ -62,6 +69,7 @@ public class UserController {
 	 * @param user
 	 * @return
 	 */
+	@ApiOperation(value = "Update User data")
 	@PostMapping(path = "/customer/update")
 	public ResponseEntity<?> updateUser(@RequestBody User user) {
 		try {
@@ -79,6 +87,7 @@ public class UserController {
 	 * @param user
 	 * @return
 	 */
+	@ApiOperation(value = "Remove User data")
 	@PostMapping(path = "/customer/remove")
 	public ResponseEntity<?> removeUser(@RequestBody User user) {
 		try {
