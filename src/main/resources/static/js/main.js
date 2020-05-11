@@ -58,7 +58,7 @@ function updateUser(){
 	};
 	
 	$.ajax({
-	      type : "POST",
+	      type : "PUT",
 	      contentType : "application/json",
 	      url : window.location + "/customer/update",
 	      data : JSON.stringify(data),

@@ -11,12 +11,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.crud.springboot.model.User;
-import com.crud.springboot.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import ch.qos.logback.core.status.Status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -36,7 +35,7 @@ public class UserCrudServiceApplicationTests {
 				MockMvcRequestBuilders.get("/cutomer/filter/{id}", 0)
 				.accept(MediaType.APPLICATION_JSON))
 				.andDo(MockMvcResultHandlers.print())
-				//.andExpect(MockMvcResultMatchers.Status().isOk())
+				.andExpect(status().isOk())
 				.andExpect(MockMvcResultMatchers.jsonPath("$.*").isNotEmpty())
 				.andExpect(MockMvcResultMatchers.jsonPath("$.*.id").isNotEmpty());
 
@@ -48,21 +47,21 @@ public class UserCrudServiceApplicationTests {
 				MockMvcRequestBuilders.get("/cutomer/filter/{id}", 3)
 				.accept(MediaType.APPLICATION_JSON))
 				.andDo(MockMvcResultHandlers.print())
-				//.andExpect(MockMvcResultMatchers.Status().isOk())
+				.andExpect(status().isOk())
 				.andExpect(MockMvcResultMatchers.jsonPath("$.*").exists())
 				.andExpect(MockMvcResultMatchers.jsonPath("$.id").isNotEmpty());
 
 	}
 	
 	@Test
-	public void tesSaveUserAPISuccess() throws Exception 
+	public void testSaveUserAPISuccess() throws Exception 
 	{
 	  mvc.perform( MockMvcRequestBuilders
 	      .post("/customer/save")
 	      .content(asJsonString(new User("Test name", 29, 35000.00)))
 	      .contentType(MediaType.APPLICATION_JSON)
 	      .accept(MediaType.APPLICATION_JSON))
-	      //.andExpect(status().isCreated())
+	      .andExpect(status().isCreated())
 	      .andExpect(MockMvcResultMatchers.jsonPath("$.status").value("Success"));
 	}
 	
@@ -74,7 +73,7 @@ public class UserCrudServiceApplicationTests {
 	      .content(asJsonString(new User("Test name", null, 35000.00)))
 	      .contentType(MediaType.APPLICATION_JSON)
 	      .accept(MediaType.APPLICATION_JSON))
-	      //.andExpect(status().isCreated())
+	      .andExpect(status().isExpectationFailed())
 	      .andExpect(MockMvcResultMatchers.jsonPath("$.status").value("Failed"));
 	}
 

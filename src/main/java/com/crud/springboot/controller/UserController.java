@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.crud.springboot.model.ResponseMessage;
 import com.crud.springboot.model.User;
 import com.crud.springboot.repository.UserRepository;
+import com.crud.springboot.service.IUserService;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -26,7 +28,7 @@ import io.swagger.annotations.ApiOperation;
 public class UserController {
 
 	@Autowired
-	private UserRepository userRepo;
+	private IUserService userService;
 
 	/**
 	 * This is used to save the user
@@ -37,7 +39,7 @@ public class UserController {
 	@PostMapping(path = "/customer/save")
 	public ResponseEntity<?> saveUser(@RequestBody User user) {
 		try {
-			userRepo.save(user);
+			userService.saveOrUpdateUser(user);
 			return new ResponseEntity(new ResponseMessage("Success"), HttpStatus.CREATED);
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -57,11 +59,7 @@ public class UserController {
 	//@GetMapping(path = "/cutomer/filter/{id}")
 	@RequestMapping(method=RequestMethod.GET, value= "/cutomer/filter/{id}")
 	public Object getUser(@PathVariable("id") Long id) {
-		if (id != (long) 0) {
-			return userRepo.findById(id);
-		}else {
-			return userRepo.findByStatus("Y");
-		}
+		return userService.findUserById(id);
 	}
 	
 	/**
@@ -69,11 +67,12 @@ public class UserController {
 	 * @param user
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	@ApiOperation(value = "Update User data")
-	@PostMapping(path = "/customer/update")
+	@PutMapping(path = "/customer/update")
 	public ResponseEntity<?> updateUser(@RequestBody User user) {
 		try {
-			userRepo.save(user);
+			userService.saveOrUpdateUser(user);
 			return new ResponseEntity(new ResponseMessage("Success"), HttpStatus.CREATED);
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -91,7 +90,7 @@ public class UserController {
 	@PostMapping(path = "/customer/remove")
 	public ResponseEntity<?> removeUser(@RequestBody User user) {
 		try {
-			userRepo.save(user);
+			userService.saveOrUpdateUser(user);
 			return new ResponseEntity(new ResponseMessage("Success"), HttpStatus.CREATED);
 		}catch(Exception e) {
 			e.printStackTrace();
