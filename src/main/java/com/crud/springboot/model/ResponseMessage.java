@@ -1,8 +1,13 @@
 package com.crud.springboot.model;
 
-public class ResponseMessage {
+import java.io.Serializable;
+
+public class ResponseMessage{
 	private String status;
 
+	public ResponseMessage() {
+		
+	}
 	
 	public ResponseMessage(String status) {
 		this.status = status;
