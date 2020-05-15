@@ -8,7 +8,8 @@
 	</groups>
 	<test name="userCRUD">
 		<classes>
-			<class name="com.crud.springboot.TestNGUserCrudApplicationTest" />
+			<class name="com.crud.springboot.TestNGUserCrudControllerTest" />
+			<!-- <class name="com.crud.springboot.TestNGUserCrudApplicationTest" /> -->
 			<!-- <class name="com.crud.springboot.TestNGSampleTest"/> -->
 		</classes>
 	</test>
