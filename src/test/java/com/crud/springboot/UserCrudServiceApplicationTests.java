@@ -1,5 +1,6 @@
 package com.crud.springboot;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import java.io.IOException;
 
 import com.crud.springboot.model.ResponseMessage;
 import com.crud.springboot.model.User;
+import com.crud.springboot.service.UserService;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,9 +33,18 @@ public class UserCrudServiceApplicationTests {
 	/*
 	 * @Autowired UserRepository userRepo;
 	 */
-
+	
 	@Autowired
+	private UserService userService;
 	private MockMvc mvc;
+	
+	
+	
+	@Test
+	public void testCreateUser() throws Exception {
+		User user = userService.saveOrUpdateUser(new User("Test Jayasundara", 25, 38000.00));
+		Assert.assertNotNull(user);
+	}
 
 	@Test
 	public void testGetAllUserApi() throws Exception {

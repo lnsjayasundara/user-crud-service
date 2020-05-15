@@ -5,23 +5,27 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 
-public class ApiError {
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion;
+
+@JsonSerialize(include=Inclusion.NON_NULL)
+public class ApiMessage {
 	private HttpStatus status;
     private String message;
     private List<String> errors;
     
-	public ApiError(HttpStatus status, String message, List<String> errors) {
-		super();
+	public ApiMessage(HttpStatus status, String message, List<String> errors) {
+		super(); 
 		this.status = status;
 		this.message = message;
 		this.errors = errors;
 	}
     
-	public ApiError(HttpStatus status) {
+	public ApiMessage(HttpStatus status) {
 		super();
 		this.status = status;
 	}
-	public ApiError(HttpStatus status, String message, String error) {
+	public ApiMessage(HttpStatus status, String message, String error) {
         super();
         this.status = status;
         this.message = message;
