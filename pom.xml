@@ -14,6 +14,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>user-crud-service</name>
 	<description>CRUD project for Spring Boot</description>
+	<packaging>war</packaging>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -63,6 +64,22 @@
             <artifactId>testng</artifactId>
             <version>6.14.3</version>
         </dependency>
+        
+        <dependency>
+            <groupId>org.springframework.ws</groupId>
+            <artifactId>spring-ws-security</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>wsdl4j</groupId>
+            <artifactId>wsdl4j</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>wss4j</groupId>
+            <artifactId>wss4j</artifactId>
+            <version>1.5.1</version>
+        </dependency>
 
 	</dependencies>
 
@@ -92,6 +109,29 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            
+            <plugin>
+                <groupId>org.jvnet.jaxb2.maven2</groupId>
+                <artifactId>maven-jaxb2-plugin</artifactId>
+                <version>0.14.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <schemaLanguage>WSDL</schemaLanguage>
+                    <generatePackage>com.crud.springboot.model.behpardakht</generatePackage>
+                    <generateDirectory>${project.basedir}/src/main/java</generateDirectory>
+                    <schemaDirectory>${project.basedir}/src/main/resources/wsdl</schemaDirectory>
+                    <schemaIncludes> 
+                        <schemaInclude>*.wsdl</schemaInclude>
+                    </schemaIncludes>
+                </configuration>
+            </plugin>
+            
 		</plugins>
 	</build>
 
